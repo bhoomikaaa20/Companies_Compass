@@ -40,6 +40,8 @@ import { CompanyTableSkeleton } from "@/components/CompanyTableSkeleton";
 import { getCompanies, deleteCompany, industries, locations } from "@/lib/mockData";
 import { Company } from "@/types/company";
 import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -195,7 +197,28 @@ export default function Companies() {
               paginatedCompanies.map((company) => (
                 <TableRow key={company.id}>
                   <TableCell className="font-medium">{company.name}</TableCell>
-                  <TableCell>{company.industry}</TableCell>
+                  <TableCell>
+                    {(() => {
+                      const industry = company.industry.toLowerCase();
+                      const industryStyles = {
+                        technology: 'bg-blue-600/10 text-blue-600 focus-visible:ring-blue-600/20 dark:bg-blue-400/10 dark:text-blue-400 dark:focus-visible:ring-blue-400/40 [a&]:hover:bg-blue-600/5 dark:[a&]:hover:bg-blue-400/5',
+                        healthcare: 'bg-green-600/10 text-green-600 focus-visible:ring-green-600/20 dark:bg-green-400/10 dark:text-green-400 dark:focus-visible:ring-green-400/40 [a&]:hover:bg-green-600/5 dark:[a&]:hover:bg-green-400/5',
+                        finance: 'bg-purple-600/10 text-purple-600 focus-visible:ring-purple-600/20 dark:bg-purple-400/10 dark:text-purple-400 dark:focus-visible:ring-purple-400/40 [a&]:hover:bg-purple-600/5 dark:[a&]:hover:bg-purple-400/5',
+                        retail: 'bg-orange-600/10 text-orange-600 focus-visible:ring-orange-600/20 dark:bg-orange-400/10 dark:text-orange-400 dark:focus-visible:ring-orange-400/40 [a&]:hover:bg-orange-600/5 dark:[a&]:hover:bg-orange-400/5',
+                        manufacturing: 'bg-gray-600/10 text-gray-600 focus-visible:ring-gray-600/20 dark:bg-gray-400/10 dark:text-gray-400 dark:focus-visible:ring-gray-400/40 [a&]:hover:bg-gray-600/5 dark:[a&]:hover:bg-gray-400/5',
+                        education: 'bg-cyan-600/10 text-cyan-600 focus-visible:ring-cyan-600/20 dark:bg-cyan-400/10 dark:text-cyan-400 dark:focus-visible:ring-cyan-400/40 [a&]:hover:bg-cyan-600/5 dark:[a&]:hover:bg-cyan-400/5',
+                        entertainment: 'bg-pink-600/10 text-pink-600 focus-visible:ring-pink-600/20 dark:bg-pink-400/10 dark:text-pink-400 dark:focus-visible:ring-pink-400/40 [a&]:hover:bg-pink-600/5 dark:[a&]:hover:bg-pink-400/5',
+                        default: 'bg-slate-600/10 text-slate-600 focus-visible:ring-slate-600/20 dark:bg-slate-400/10 dark:text-slate-400 dark:focus-visible:ring-slate-400/40 [a&]:hover:bg-slate-600/5 dark:[a&]:hover:bg-slate-400/5'
+                      };
+                      const badgeStyles = industryStyles[industry] || industryStyles.default;
+
+                      return (
+                        <Badge className={cn('rounded-full border-none focus-visible:outline-none', badgeStyles)}>
+                          {company.industry}
+                        </Badge>
+                      );
+                    })()}
+                  </TableCell>
                   <TableCell>{company.location}</TableCell>
                   <TableCell>{company.size}</TableCell>
                   <TableCell>

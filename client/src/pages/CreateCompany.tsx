@@ -79,13 +79,13 @@ export default function CreateCompany() {
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <Button variant="ghost" onClick={() => navigate("/")} className="mb-6">
+    <div className="p-6 min-h-screen flex items-center justify-center">
+      <Button variant="ghost" onClick={() => navigate("/")} className="absolute top-6 left-6">
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to Companies
       </Button>
 
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>Create New Company</CardTitle>
           <CardDescription>Add a new company to your directory</CardDescription>
