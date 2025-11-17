@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Edit, Trash2, ExternalLink } from "lucide-react";
+import { Edit, Trash2, ExternalLink, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -54,6 +54,8 @@ export default function Companies() {
   const [currentPage, setCurrentPage] = useState(1);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [companyToDelete, setCompanyToDelete] = useState<string | null>(null);
+  const [sortField, setSortField] = useState<keyof Company | null>(null);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -72,17 +74,40 @@ export default function Companies() {
   }, []);
 
   const filteredCompanies = useMemo(() => {
-    return companies.filter((company) => {
+    let filtered = companies.filter((company) => {
       const matchesSearch = company.name.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesIndustry = selectedIndustry === "all" || company.industry === selectedIndustry;
       const matchesLocation = selectedLocation === "all" || company.location === selectedLocation;
       return matchesSearch && matchesIndustry && matchesLocation;
     });
-  }, [companies, searchQuery, selectedIndustry, selectedLocation]);
+
+    if (sortField) {
+      filtered = filtered.sort((a, b) => {
+        const aValue = a[sortField];
+        const bValue = b[sortField];
+
+        if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    return filtered;
+  }, [companies, searchQuery, selectedIndustry, selectedLocation, sortField, sortDirection]);
 
   const totalPages = Math.ceil(filteredCompanies.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedCompanies = filteredCompanies.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  const handleSort = (field: keyof Company) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+    setCurrentPage(1);
+  };
 
   const handleDelete = (id: string) => {
     setCompanyToDelete(id);
@@ -178,10 +203,62 @@ export default function Companies() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Industry</TableHead>
-              <TableHead>Location</TableHead>
-              <TableHead>Size</TableHead>
+              <TableHead>
+                <Button
+                  variant="ghost"
+                  onClick={() => handleSort('name')}
+                  className="h-auto p-0 font-medium hover:bg-transparent"
+                >
+                  Name
+                  {sortField === 'name' ? (
+                    sortDirection === 'asc' ? <ArrowUp className="ml-2 h-4 w-4" /> : <ArrowDown className="ml-2 h-4 w-4" />
+                  ) : (
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                  )}
+                </Button>
+              </TableHead>
+              <TableHead>
+                <Button
+                  variant="ghost"
+                  onClick={() => handleSort('industry')}
+                  className="h-auto p-0 font-medium hover:bg-transparent"
+                >
+                  Industry
+                  {sortField === 'industry' ? (
+                    sortDirection === 'asc' ? <ArrowUp className="ml-2 h-4 w-4" /> : <ArrowDown className="ml-2 h-4 w-4" />
+                  ) : (
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                  )}
+                </Button>
+              </TableHead>
+              <TableHead>
+                <Button
+                  variant="ghost"
+                  onClick={() => handleSort('location')}
+                  className="h-auto p-0 font-medium hover:bg-transparent"
+                >
+                  Location
+                  {sortField === 'location' ? (
+                    sortDirection === 'asc' ? <ArrowUp className="ml-2 h-4 w-4" /> : <ArrowDown className="ml-2 h-4 w-4" />
+                  ) : (
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                  )}
+                </Button>
+              </TableHead>
+              <TableHead>
+                <Button
+                  variant="ghost"
+                  onClick={() => handleSort('size')}
+                  className="h-auto p-0 font-medium hover:bg-transparent"
+                >
+                  Size
+                  {sortField === 'size' ? (
+                    sortDirection === 'asc' ? <ArrowUp className="ml-2 h-4 w-4" /> : <ArrowDown className="ml-2 h-4 w-4" />
+                  ) : (
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                  )}
+                </Button>
+              </TableHead>
               <TableHead>Website</TableHead>
               <TableHead className="w-[100px]">Actions</TableHead>
             </TableRow>
