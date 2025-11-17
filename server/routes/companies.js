@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 // GET /companies/:id - Get company by id
 router.get('/:id', async (req, res) => {
     try {
-        const company = await Company.findById(req.params.id);
+        const company = await Company.findOne({ id: req.params.id });
         if (!company) {
             return res.status(404).json({ message: 'Company not found' });
         }
@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
 // PUT /companies/:id - Update company
 router.put('/:id', async (req, res) => {
     try {
-        const company = await Company.findById(req.params.id);
+        const company = await Company.findOne({ id: req.params.id });
         if (!company) {
             return res.status(404).json({ message: 'Company not found' });
         }
@@ -70,12 +70,12 @@ router.put('/:id', async (req, res) => {
 // DELETE /companies/:id - Delete company
 router.delete('/:id', async (req, res) => {
     try {
-        const company = await Company.findById(req.params.id);
+        const company = await Company.findOne({ id: req.params.id });
         if (!company) {
             return res.status(404).json({ message: 'Company not found' });
         }
 
-        await Company.findByIdAndDelete(req.params.id);
+        await Company.findOneAndDelete({ id: req.params.id });
         res.json({ message: 'Company deleted' });
     } catch (error) {
         res.status(500).json({ message: error.message });
