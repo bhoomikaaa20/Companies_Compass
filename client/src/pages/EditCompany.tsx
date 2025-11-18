@@ -238,10 +238,10 @@ export default function EditCompany() {
             </div>
 
             <div className="flex gap-4 pt-4">
-              <Button type="submit" className="flex-1" disabled={saving}>
+              <Button type="submit" className="flex-1 bg-sidebar text-sidebar-foreground hover:bg-sidebar-accent" disabled={saving}>
                 {saving ? "Saving..." : "Save Changes"}
               </Button>
-              <Button type="button" variant="outline" onClick={() => navigate("/")} disabled={saving}>
+              <Button type="button" variant="outline" className="flex-1" onClick={() => navigate("/")} disabled={saving}>
                 Cancel
               </Button>
             </div>

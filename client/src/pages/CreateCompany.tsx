@@ -176,10 +176,10 @@ export default function CreateCompany() {
             </div>
 
             <div className="flex gap-4 pt-4">
-              <Button type="submit" className="flex-1" disabled={loading}>
+              <Button type="submit" className="flex-1 bg-sidebar text-sidebar-foreground hover:bg-sidebar-accent" disabled={loading}>
                 {loading ? "Creating..." : "Create Company"}
               </Button>
-              <Button type="button" variant="outline" onClick={() => navigate("/")} disabled={loading}>
+              <Button type="button" variant="outline" className="flex-1" onClick={() => navigate("/")} disabled={loading}>
                 Cancel
               </Button>
             </div>
