@@ -21,6 +21,8 @@ import {
   useSensor,
   useSensors,
   useDroppable,
+  closestCenter,
+  rectIntersection,
   pointerWithin,
 } from "@dnd-kit/core";
 import {
@@ -187,8 +189,21 @@ export default function KanbanView() {
     const activeId = active.id as string;
     const overId = over.id as string;
 
+    // Only process drops on droppable areas (columns), not on other cards
+    if (!overId.startsWith('droppable-')) {
+      setActiveId(null);
+      return;
+    }
+
     // Extract the actual industry name from droppable id
-    const targetIndustry = overId.startsWith('droppable-') ? overId.replace('droppable-', '') : overId;
+    const targetIndustry = overId.replace('droppable-', '');
+
+    // Only process drops on droppable areas (columns), not on other cards
+    if (!overId.startsWith('droppable-')) {
+      console.log("Drop ignored - not on a droppable area");
+      setActiveId(null);
+      return;
+    }
 
     // Find the company and new industry
     const company = companies.find((c) => c.id === activeId);
@@ -232,7 +247,22 @@ export default function KanbanView() {
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={pointerWithin}
+      collisionDetection={(args) => {
+        // Use rectIntersection for droppable areas, closestCenter for others
+        const droppableCollisions = rectIntersection({
+          ...args,
+          droppableContainers: args.droppableContainers.filter(container =>
+            container.id.toString().startsWith('droppable-')
+          ),
+        });
+
+        if (droppableCollisions.length > 0) {
+          return droppableCollisions;
+        }
+
+        // Fallback to pointerWithin for other cases
+        return pointerWithin(args);
+      }}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
