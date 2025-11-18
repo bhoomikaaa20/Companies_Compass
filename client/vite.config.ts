@@ -9,7 +9,7 @@ export default defineConfig(() => ({
     port: 8080,
     proxy: {
       "/api": {
-        target: "https://companies-compass.onrender.com",
+        target: "https://companies-compass-1.onrender.com",
         changeOrigin: true,
       },
     },
