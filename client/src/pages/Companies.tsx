@@ -144,7 +144,7 @@ export default function Companies() {
           <h1 className="text-3xl font-bold">Companies</h1>
           <p className="text-muted-foreground mt-1">Manage your company directory</p>
         </div>
-        <Button asChild>
+        <Button asChild className="bg-sidebar text-sidebar-foreground hover:bg-sidebar-accent">
           <Link to="/create">Add Company</Link>
         </Button>
       </div>

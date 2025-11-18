@@ -1,7 +1,7 @@
 import { Company, CompanyFormData } from "@/types/company";
 
 export async function getCompanies(): Promise<Company[]> {
-  const response = await fetch("/api/companies");
+  const response = await fetch("https://companies-compass.onrender.com/api/companies");
   if (!response.ok) {
     throw new Error("Failed to fetch companies");
   }
@@ -9,7 +9,7 @@ export async function getCompanies(): Promise<Company[]> {
 }
 
 export async function createCompany(data: CompanyFormData): Promise<Company> {
-  const response = await fetch("/api/companies", {
+  const response = await fetch("https://companies-compass.onrender.com/api/companies", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export async function createCompany(data: CompanyFormData): Promise<Company> {
 }
 
 export async function updateCompany(id: string, data: CompanyFormData): Promise<Company> {
-  const response = await fetch(`/api/companies/${id}`, {
+  const response = await fetch(`https://companies-compass.onrender.com/api/companies/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export async function updateCompany(id: string, data: CompanyFormData): Promise<
 }
 
 export async function deleteCompany(id: string): Promise<void> {
-  const response = await fetch(`/api/companies/${id}`, {
+  const response = await fetch(`https://companies-compass.onrender.com/api/companies/${id}`, {
     method: "DELETE",
   });
   if (!response.ok) {

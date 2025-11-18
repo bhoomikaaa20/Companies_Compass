@@ -64,7 +64,8 @@ export default function KanbanView() {
           <h1 className="text-3xl font-bold">Kanban View</h1>
           <p className="text-muted-foreground mt-1">Companies organized by industry</p>
         </div>
-        <Button asChild>
+        <Button asChild className="bg-sidebar text-sidebar-foreground hover:bg-sidebar-accent">
+
           <Link to="/create">Add Company</Link>
         </Button>
       </div>
