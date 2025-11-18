@@ -2,33 +2,35 @@
 
 ## Overview
 
-Company Compass is a comprehensive web application designed to help organizations manage and explore their company directory. Whether you're tracking potential business partners, maintaining a network of industry contacts, or organizing corporate relationships, this tool provides an intuitive way to store, search, and visualize company information.
+Company Compass is a web application designed to help you manage and explore a directory of companies. It provides an intuitive interface to store, search, and organize company information in a structured way.
 
-### What Makes Company Compass Special
+### What You Can Do
 
-Instead of scattered spreadsheets or disconnected CRM systems, Company Compass offers a centralized, user-friendly platform where you can:
-
-- **Build a Complete Company Profile**: Store essential details like industry, location, company size, and website links for each organization
-- **Discover Patterns**: Use advanced filtering and sorting to identify trends across industries, locations, and company sizes
-- **Visualize Your Network**: Switch between table and Kanban views to see your company relationships from different perspectives
-- **Stay Organized**: Pagination and search features ensure you can quickly find information even with large datasets
+- **Store Company Information**: Keep track of company details including name, industry, location, size, and website
+- **Search and Filter**: Quickly find companies by name, industry, or location
+- **Sort Data**: Organize companies alphabetically or by different attributes
+- **Visual Views**: See your companies in both table and Kanban board formats
+- **Manage Records**: Add new companies, update existing ones, and remove entries as needed
+- **Handle Large Lists**: Navigate through extensive company directories with pagination
 
 ## How It Works
 
 ### For Users
-1. **Browse Companies**: Start by viewing the main directory in a clean table format, showing all companies at a glance
-2. **Find What You Need**: Use the search bar to look for specific company names, or filter by industry (like Technology or Healthcare) and location (such as San Francisco or New York)
-3. **Sort and Organize**: Click column headers to sort companies alphabetically, by industry, location, or size
-4. **Visual Exploration**: Switch to Kanban view to see companies organized by industry columns, perfect for spotting clusters or gaps in your network
-5. **Manage Records**: Add new companies, edit existing ones, or remove outdated entries with simple forms and confirmation dialogs
-6. **Navigate Easily**: Use pagination to handle large lists, and responsive design works seamlessly on desktop and mobile
+1. **View the Directory**: Start with a table showing all companies and their key details
+2. **Search Companies**: Use the search bar to find companies by name
+3. **Filter Results**: Narrow down the list by selecting specific industries or locations
+4. **Sort Information**: Click column headers to sort companies by name, industry, location, or size
+5. **Switch Views**: Toggle between table view and Kanban view organized by industry
+6. **Add Companies**: Use the create form to add new companies to your directory
+7. **Edit Companies**: Update company information through simple edit forms
+8. **Remove Companies**: Delete companies with confirmation dialogs
+9. **Browse Pages**: Use pagination controls to navigate through large datasets
 
-### Under the Hood
-The application uses a modern full-stack architecture:
-- **Frontend**: A responsive React app that communicates with a REST API
-- **Backend**: A Node.js server that handles data requests and serves company information
-- **Database**: MongoDB stores company records with flexible schemas
-- **Real-time Updates**: Changes are reflected immediately across the application
+### Technical Workflow
+- The React frontend communicates with a Node.js backend API
+- Data is stored in a MongoDB database
+- Changes are saved and retrieved in real-time
+- The application works responsively across different devices
 
 ## Features
 
@@ -204,3 +206,15 @@ interface Company {
 - 1000-5000
 - 5000+
 
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
+
+## License
+
+This project is licensed under the ISC License.
+```
